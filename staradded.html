@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LOWKDEVS | Local Food & Veggies</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background-image: url('https://i.postimg.cc/W44m8shp/Whats-App-Image-2025-07-27-at-18-57-35-99c4572d.jpg');
+      background-size: cover;      /* Full screen */
+      background-position: center; /* Center the image */
+      background-repeat: no-repeat;
+      
+      /* Add a semi-transparent overlay using linear-gradient */
+      background-blend-mode: overlay;
+      background-color: rgba(0, 0, 0, 0.5); /* dark overlay */
+      color:black;
+      min-height: 100vh; /* Ensure body covers full viewport */
+
+      
+
+    
+}
+
+    header {
+      background-color:rgb(183, 152, 175);
+      color: linear-gradient(to right,violet,blue);
+      padding: 20px;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    @keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.coupon-success {
+  animation: pop 0.4s ease;
+  color: green;
+  font-weight: bold;
+}
+
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      background-color: #d81b60;
+      padding: 10px 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .section {
+      padding: 30px 20px;
+    }
+
+     .vendor-container, .stock-container {
+     
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .kits-container {
+      
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgb(238, 237, 237);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+
+      animation-duration: 4s;
+     animation-iteration-count:infinite ;
+     animation-direction: alternate;
+     
+     
+    }
+
+    .card:hover{
+    animation-name: example;
+    
+  transform: scale(1.07);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+}
+
+
+@keyframes example{
+    from{background-color: white;}
+    to {background-color: rgba(252,96,96,255);color: white;}
+}
+
+
+
+
+
+
+
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #ec407a;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      margin: 5px;
+    }
+
+    input, select {
+      margin: 5px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 90%;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #cart-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: 30px auto;
+    }
+
+    #cart-box h2 {
+      margin-bottom: 15px;
+      color: #e91e63;
+    }
+
+    #cart-items li {
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    #total-bill, #final-bill {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #d81b60;
+    }
+
+    #dashboard-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(240, 226, 226, 0.1);
+      margin-top: 10px;
+    }
+
+    .shadow-dance-text {
+    font-size: 3rem;
+    color:rgb(254, 250, 250);
+    text-shadow: 5px 5px 5px #d35785;
+    
+}
+
+
+
+  </style>
+</head>
+<body>
+  
+<header>
+  <div style="display: flex; align-items: center; justify-content:left; gap: 15px;">
+    <img src="https://i.postimg.cc/hv4KzZ2Y/Whats-App-Image-2025-07-27-at-18-21-38-0839967e.jpg" alt="LOWKDEVS Logo" style="height: 50px; border-radius: 8px;" />
+    <span style="font-family:Verdana, Geneva, Tahoma, sans-serif;">URBAN BASKET</span>
+
+  </div>
+</header>
+
+<nav>
+  <div>
+    <a onclick="showSection('customer')">Customer</a>
+    <a onclick="showSection('vendor')">Vendor</a>
+  </div>
+  <div>
+    <a href="#cart">🛒 Cart (<span id="cart-count">0</span>)</a>
+  </div>
+</nav>
+
+<section class="login-section" id="login-section">
+  <h2 class="shadow-dance-text" style="text-align:center; margin-top:30px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color: aliceblue;">Welcome to Urban Basket</h2>
+  <div class =box style="background-color: #d81b60;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 400px;
+    margin: 30px auto;">
+  <div style="text-align:center; width:400">
+    <select id="role" style="padding-top: 10px;">
+      <option value="customer">Customer</option>
+      <option value="vendor">Vendor</option>
+    </select>
+    <input type="text" placeholder="Username" id="username"/>
+<input type="password" placeholder="Password" id="password"/><br>
+<button onclick="login()">Enter</button>
+
+  </div>
+  </div>
+</section>
+
+<section class="section hidden" id="customer">
+  <h2 style="color: white;">Street Food Kits</h2><br>
+  <div class="kits-container" id="kit-list"></div>
+
+  <h2 style="margin-top:40px;color: white;">Vegetable Stock</h2><br>
+  <div class="stock-container" id="stock-list"></div>
+</section>
+
+<section class="section hidden" id="vendor">
+  <h2 style="color: white;">Vendor - Add Vegetables</h2>
+  <input type="text" id="veg-name" placeholder="Vegetable Name"/>
+  <input type="number" id="veg-qty" placeholder="Quantity"/>
+  <input type="number" id="veg-price" placeholder="Price"/><br>
+  <button onclick="addVeg()">Add to Stock</button>
+  <div class="vendor-container" id="veg-list"></div>
+  <h2 style="margin-top:40px;color: white;">📈 Sales Dashboard</h2>
+  <div id="dashboard-box">
+    <p id="dashboard-content">No sales yet.</p>
+    <h2 style="margin-top:40px;">🗣️ Customer Reviews</h2>
+<div id="vendor-reviews" style="margin-top:10px;"></div>
+
+  </div>
+</section>
+
+<section class="section hidden" id="cart">
+  <div id="cart-box">
+    <h2>Your Cart</h2>
+    <ul id="cart-items"></ul>
+    <h3>Total: ₹<span id="total-bill">0</span></h3>
+
+    <div style="margin-top:20px;">
+      <label for="coupon">Apply Coupon:</label>
+      <input type="text" id="coupon" placeholder="Enter coupon code"/>
+      <button onclick="applyDiscount()">Apply</button>
+      <p id="discount-msg" style="color: green; font-weight: 500;"></p>
+    </div>
+
+    <div style="margin-top:20px;">
+      <label for="upi">Enter UPI ID:</label>
+      <input type="text" id="upi" placeholder="yourname@upi"/>
+    </div>
+
+    <h3 style="margin-top:20px;">Final Payable: ₹<span id="final-bill">0</span></h3>
+    <button style="margin-top:10px;" onclick="payNow()">Pay Now</button>
+  </div>
+</section>
+
+<script>
+  let cart = [];
+  let stock = [];
+  let currentRole = null;
+  let initialized = false;
+  let discountApplied = false;
+  let reviews = {};
+  let salesData = {};
+  function login() {
+  const role = document.getElementById('role').value;
+  const name = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  if (!name || !password) {
+    alert("Please enter both username and password.");
+    return;
+  }
+
+  currentRole = role;
+  document.getElementById('login-section').classList.add('hidden');
+  showSection(role);
+  if (!initialized) {
+    renderKits();
+    renderStock();
+    initialized = true;
+  }
+  alert(`Welcome ${name}! You are logged in as ${role}.`);
+}
+  const kits = [
+  { name: "Packing Kit: Eco friendly", price: 500, details: "Includes: Spoons,Box,Covers,Cups",img:"https://i.postimg.cc/Vkkk6T10/IMG-20250726-WA0020.jpg" },
+  { name: "Bajji Kit", price: 140, details: "Includes: Chilli,Bajji Mix, Masala,Oil, Raw Banana",img:"https://i.postimg.cc/htYcGtpN/IMG-20250726-WA0027.jpg" },
+  { name: "Vada Kit", price: 200 , details: "Includes: Oil, Gram Flour, Masala, Chutney",img:"https://i.postimg.cc/fLjGYzfz/IMG-20250726-WA0028.jpg" },
+  { name: "Jigarthanda Kit", price: 450, details: "Includes: Milk, Sugar, Tapioca pearls",img:"https://i.postimg.cc/nVKF1ZhQ/IMG-20250726-WA0025.jpg" },
+  { name: "Bread Omelet Kit", price: 230, details: "Includes: Oil, Bread, Eggs, Spices",img:"https://i.postimg.cc/tTxTbxbr/IMG-20250726-WA0024.jpg" },
+  { name: "Masala Peanuts Kit", price: 150, details: "Includes: Groundnuts, Masala, Onion",img:"https://i.postimg.cc/wjCZPyWx/IMG-20250726-WA0023.jpg" },
+  { name: "Coconut Burfi Kit", price: 400, details: "Includes: Oil, Coconut, Ghee, Sugar",img:"https://i.postimg.cc/50NYM00T/imageburfi.jpg" },
+  { name: "Pazhampori Kit", price: 350, details: "Includes: Banana, Sugar, Gram Flour",img:"https://i.postimg.cc/rmJHKhqz/IMG-20250726-WA0021.jpg" },
+  { name: "Soup(s) Kit", price: 400, details: "Includes: Sweetcorn, Masala, Watercan",img:"https://i.postimg.cc/LXpdqYfQ/IMG-20250726-WA0022.jpg" }
+];
+  function login() {
+    const role = document.getElementById('role').value;
+    const name = document.getElementById('username').value.trim();
+    if (!name) {
+      alert("Please enter a username.");
+      return;
+    }
+    currentRole = role;
+    document.getElementById('login-section').classList.add('hidden');
+    showSection(role);
+    if (!initialized) {
+      renderKits();
+      renderStock();
+      initialized = true;
+    }
+    alert(`Welcome ${name}! You are logged in as ${role}.`);
+  }
+
+  function showSection(role) {
+    document.getElementById('customer').classList.add('hidden');
+    document.getElementById('vendor').classList.add('hidden');
+    document.getElementById('cart').classList.add('hidden');
+    if (role === 'customer') {
+      document.getElementById('customer').classList.remove('hidden');
+      document.getElementById('cart').classList.remove('hidden');
+    } else if (role === 'vendor') {
+      document.getElementById('vendor').classList.remove('hidden');
+    }
+  }
+
+  function renderKits() {
+    const kitList = document.getElementById('kit-list');
+    kitList.innerHTML = '';
+    kits.forEach(kit => {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+      <img src="${kit.img}" alt="${kit.name}" style="width:100%;max-height:130px;object-fit:contain;margin-bottom:10px;">
+      <h3>${kit.name}</h3>
+      <p>${kit.details}</p>
+      <p>₹${kit.price}</p>
+        <button onclick="addToCart('${kit.name}', ${kit.price})">Add to Cart</button>`;
+      kitList.appendChild(div);
+    });
+  }
+
+  function addVeg() {
+    const name = document.getElementById('veg-name').value.trim();
+    const qty = parseInt(document.getElementById('veg-qty').value);
+    const price = parseInt(document.getElementById('veg-price').value);
+    if (!name || isNaN(qty) || qty <= 0 || isNaN(price) || price <= 0) return;
+
+    stock.push({ name, qty, price, sold: 0 });
+    salesData[name] = { sold: 0, revenue: 0 };
+    renderStock();
+    document.getElementById('veg-name').value = '';
+    document.getElementById('veg-qty').value = '';
+    document.getElementById('veg-price').value = '';
+  }
+
+  function renderStock() {
+    const stockList = document.getElementById('stock-list');
+    const vendorList = document.getElementById('veg-list');
+    stockList.innerHTML = '';
+    vendorList.innerHTML = '';
+
+    stock.forEach((item, index) => {
+      // Customer view
+      const custCard = document.createElement('div');
+      custCard.className = 'card';
+      custCard.innerHTML = `
+  <h3>${item.name}</h3>
+  <p>₹${item.price} | Qty: ${item.qty}</p>
+  <button onclick="addToCart('${item.name}', ${item.price}, ${index})">Add to Cart</button>
+  <div>
+    <input type="text" placeholder="Write a review" id="review-${index}" />
+    <select id="rating-${index}">
+      <option value="1">⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="5">⭐⭐⭐⭐⭐</option>
+    </select>
+    <button onclick="submitReview(${index})">Submit</button>
+    <div id="reviews-${index}">${renderReviews(index)}</div>
+  </div>
+`;
+
+      stockList.appendChild(custCard);
+
+      // Vendor view
+      const vendCard = document.createElement('div');
+      vendCard.className = 'card';
+      vendCard.innerHTML = `
+        <h3>${item.name}</h3>
+        <p>Qty: ${item.qty} | ₹${item.price}</p>
+        <button onclick="editStock(${index})">Edit</button>
+        <button onclick="deleteStock(${index})">Delete</button>
+      `;
+      vendorList.appendChild(vendCard);
+    });
+
+    showSalesDashboard();
+  }
+
+  function editStock(index) {
+    const item = stock[index];
+    const newQty = prompt(`Edit quantity for ${item.name}:`, item.qty);
+    const newPrice = prompt(`Edit price for ${item.name}:`, item.price);
+    if (newQty !== null && newPrice !== null) {
+      stock[index].qty = parseInt(newQty);
+      stock[index].price = parseInt(newPrice);
+      renderStock();
+    }
+  }
+
+  function deleteStock(index) {
+    if (confirm(`Delete ${stock[index].name}?`)) {
+      stock.splice(index, 1);
+      renderStock();
+    }
+  }
+
+ function addToCart(name, price, index = null) {
+  const existing = cart.find(item => item.name === name);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ name, price, qty: 1 });
+  }
+
+  document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+
+  if (index !== null) {
+    stock[index].qty -= 1;
+    stock[index].sold += 1;
+    salesData[name].sold += 1;
+    salesData[name].revenue += price;
+    renderStock();
+  }
+
+  showAddedMessage(name);
+  renderCart();
+}
+function showAddedMessage(name) {
+  const msg = document.createElement('div');
+  msg.textContent = `${name} added to cart!`;
+  msg.style.position = 'fixed';
+  msg.style.bottom = '20px';
+  msg.style.right = '20px';
+  msg.style.background = '#4caf50';
+  msg.style.color = 'white';
+  msg.style.padding = '10px 15px';
+  msg.style.borderRadius = '8px';
+  msg.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+  document.body.appendChild(msg);
+  setTimeout(() => msg.remove(), 1500);
+}
+
+ function renderCart() {
+  const cartItems = document.getElementById('cart-items');
+  cartItems.innerHTML = '';
+  let total = 0;
+
+  cart.forEach((item, i) => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      ${item.name} - ₹${item.price} x ${item.qty}
+      <button onclick="changeQty(${i}, 1)">+</button>
+      <button onclick="changeQty(${i}, -1)">−</button>
+    `;
+    cartItems.appendChild(li);
+    total += item.price * item.qty;
+  });
+
+  document.getElementById('total-bill').textContent = total;
+  document.getElementById('final-bill').textContent = total;
+}
+
+function changeQty(index, delta) {
+  cart[index].qty += delta;
+  if (cart[index].qty <= 0) {
+    cart.splice(index, 1);
+  }
+  document.getElementById('cart-count').textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+  renderCart();
+}
+
+  function applyDiscount() {
+  const code = document.getElementById('coupon').value.trim();
+  let total = parseInt(document.getElementById('total-bill').textContent);
+  const msg = document.getElementById('discount-msg');
+
+  if (code === 'LOWKDEVS' && !discountApplied) {
+    const discount = Math.floor(total * 0.05);
+    total -= discount;
+    document.getElementById('final-bill').textContent = total;
+    msg.textContent = `Coupon applied! ₹${discount} off.`;
+    msg.classList.add('coupon-success');
+    discountApplied = true;
+
+    // Remove animation class after it runs
+    setTimeout(() => msg.classList.remove('coupon-success'), 500);
+  } else {
+    msg.textContent = 'Invalid or already used coupon.';
+    msg.classList.remove('coupon-success');
+  }
+}
+
+
+  function payNow() {
+    const upi = document.getElementById('upi').value.trim();
+    if (!upi.includes('@')) {
+      alert("Enter a valid UPI ID.");
+      return;
+    }
+    alert(`Payment of ₹${document.getElementById('final-bill').textContent} successful via ${upi}!`);
+    cart = [];
+    document.getElementById('cart-count').textContent = 0;
+    renderCart();
+    document.getElementById('coupon').value = '';
+    document.getElementById('upi').value = '';
+    document.getElementById('discount-msg').textContent = '';
+    discountApplied = false;
+  }
+ function submitReview(index) {
+  const input = document.getElementById(`review-${index}`);
+  const ratingSelect = document.getElementById(`rating-${index}`);
+  const text = input.value.trim();
+  const rating = parseInt(ratingSelect.value);
+
+  if (!text || isNaN(rating)) return;
+
+  if (!reviews[index]) reviews[index] = [];
+  reviews[index].push({ text, rating });
+
+  input.value = '';
+  ratingSelect.value = '1';
+  document.getElementById(`reviews-${index}`).innerHTML = renderReviews(index);
+  renderVendorReviews(); // Update vendor view
+}
+
+
+
+
+ function renderReviews(index) {
+  if (!reviews[index]) return '';
+  return reviews[index]
+    .map(r => `<p>⭐${'⭐'.repeat(r.rating - 1)} ${r.text}</p>`)
+    .join('');
+}
+
+
+  function renderAllReviews() {
+  const container = document.getElementById('all-reviews');
+  container.innerHTML = '';
+
+  Object.keys(reviews).forEach(index => {
+    const item = stock[index];
+    const productReviews = reviews[index];
+    if (productReviews && productReviews.length > 0) {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `<h3>${item.name}</h3>` +
+        productReviews.map(r => `<p>🗣️ ${r}</p>`).join('');
+      container.appendChild(div);
+    }
+  });
+}
+
+function renderVendorReviews() {
+  const container = document.getElementById('vendor-reviews');
+  container.innerHTML = '';
+  Object.keys(reviews).forEach(index => {
+    const item = stock[index];
+    const productReviews = reviews[index];
+    if (productReviews && productReviews.length > 0) {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `<h3>${item.name}</h3>` +
+        productReviews.map(r => `<p>⭐${'⭐'.repeat(r.rating - 1)} ${r.text}</p>`).join('');
+      container.appendChild(div);
+    }
+  });
+}
+
+  function showSalesDashboard() {
+    const box = document.getElementById('dashboard-content');
+    if (Object.keys(salesData).length === 0) {
+      box.innerHTML = 'No sales yet.';
+      return;
+    }
+
+    let html = '<ul style="list-style:none; padding-left:0;">';
+    Object.keys(salesData).forEach(name => {
+      const data = salesData[name];
+      html += `<li>📈 <strong>${name}</strong>: Sold ${data.sold}, Revenue ₹${data.revenue}</li>`;
+    });
+    html += '</ul>';
+    box.innerHTML = html;
+  }
+  function showOrderSummary() {
+  const modal = document.getElementById('order-summary-modal');
+  const overlay = document.getElementById('modal-overlay');
+  const list = document.getElementById('summary-items');
+  const totalEl = document.getElementById('summary-total');
+
+  list.innerHTML = '';
+  let total = 0;
+
+  cart.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = `${item.name} x ${item.qty} = ₹${item.price * item.qty}`;
+    list.appendChild(li);
+    total += item.price * item.qty;
+  });
+
+  totalEl.textContent = total;
+
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+
+  // Trigger fade-in
+  setTimeout(() => {
+    modal.style.opacity = '1';
+    overlay.style.opacity = '1';
+  }, 10);
+}
+
+function closeSummary() {
+  const modal = document.getElementById('order-summary-modal');
+  const overlay = document.getElementById('modal-overlay');
+
+  modal.style.opacity = '0';
+  overlay.style.opacity = '0';
+
+  setTimeout(() => {
+    modal.classList.add('hidden');
+    overlay.classList.add('hidden');
+  }, 300);
+}
+
+function confirmAndPay() {
+  alert("✅ Payment confirmed! Thank you for your order.");
+  closeSummary();
+  // You can also trigger actual payment logic here
+}
+
+</script>
+<div id="order-summary-modal" class="hidden" style="
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 1000;
+  max-width: 400px;
+  width: 90%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+">
+  <h3 style="color:#d81b60;">🧾 Order Summary</h3>
+  <ul id="summary-items" style="margin-top:10px;"></ul>
+  <p style="margin-top:10px;">Total: ₹<span id="summary-total">0</span></p>
+  <div style="margin-top:15px; display: flex; justify-content: space-between;">
+    <button onclick="closeSummary()">Close</button>
+    <button onclick="confirmAndPay()" style="background-color:#4caf50; color:white; border:none; padding:6px 12px; border-radius:6px;">Confirm & Pay</button>
+  </div>
+</div>
+<div id="modal-overlay" class="hidden" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+"></div>
+</body>
+</html>
+
+
+
+
